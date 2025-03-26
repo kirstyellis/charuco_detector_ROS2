@@ -2,12 +2,12 @@ charuco_detector:
   ros__parameters:
     charuco_parameters:
       squaresSidesSizeM: 0.0200
-      markersSidesSizeM: 0.0150
+      markersSidesSizeM: 0.016
       numberOfBitsForMarkersSides: 4
-      numberOfMarkers: 70
-      numberOfSquaresInX: 10
-      numberOfSquaresInY: 14
-      dictionaryId: 3
+      numberOfMarkers: 63
+      numberOfSquaresInX: 14
+      numberOfSquaresInY: 9
+      dictionaryId: 5
     function_parameters:
       use_median_blur: false
       median_blur_k_size: 6
@@ -32,14 +32,6 @@ charuco_detector:
       tf_broadcaster_republish_rate: 10.0
       sensor_frame_override: calib_camera
       charuco_tf_frame: calib_charuco
-
-    subscribers:
-      image_topic:
-        topic: /camera/color/image_raw
-        queue_size: 1
-      camera_info:
-        topic: /camera/color/camera_info
-        queue_size: 1
 
     publishers:
       image_results_publisher:

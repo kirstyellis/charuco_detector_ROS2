@@ -69,7 +69,7 @@ public:
 									cv::Vec3d &_camera_rotation_out, cv::Vec3d &_camera_translation_out,
 									cv::InputOutputArray _image_with_detection_results, bool _show_rejected_markers);
 	void fillPose(const cv::Vec3d &_camera_rotation, const cv::Vec3d &_camera_translation, geometry_msgs::msg::PoseStamped &_pose_in_out);
-	void getCameraCalibrationCoefficient();
+	void getCameraCalibrationCoefficient(int num_dist_coefs);
 private:
 	cv::Ptr<cv::aruco::DetectorParameters> detector_parameters_;
 	cv::Ptr<cv::aruco::Dictionary> dictionary_;
@@ -104,20 +104,25 @@ private:
 	int imageQueueSize;
 	bool imageLatch;
 
-	std::string file_path_;
 	std::string sensor_frame_override_;
 	std::string charuco_tf_frame_;
-	std::string image_topic_;
-	std::string camera_info_topic_;
 	std::string image_results_publish_topic_;
 	std::string charuco_pose_publish_topic_;
 	
-	std::vector<double> distortion;
-	std::vector<double> intrinsic;
 	sensor_msgs::msg::CameraInfo::ConstSharedPtr camera_info_;
+	
 	cv::Mat camera_intrinsics_matrix;
 	cv::Mat camera_distortion_coefficients_matrix;
 
+	double distortion_[5];
+    	double intrinsic_[3][3];
+
+	std::string distortion_model_;
+	std::string image_topic_;
+    	std::string camera_info_topic_;
+    	bool use_calibration_file_;
+    	std::string calibration_file_;
+	
 	rclcpp::Node::SharedPtr node_handle_;
 	rclcpp::Node::SharedPtr private_node_handle_;
 	std::shared_ptr<image_transport::ImageTransport> image_transport_ptr_;
